@@ -1,5 +1,6 @@
 # DH Pay JS
-JS/TS SDK to integrate with DHFinance in minutes.
+NodeJS SDK to integrate with DHFinance in minutes.
+
 # Install
 ```sh
  npm i dhf-pay-js -S
@@ -92,4 +93,4 @@ JS/TS SDK to integrate with DHFinance in minutes.
  npm test
 ```
  
- 
+

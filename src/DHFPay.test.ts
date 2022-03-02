@@ -61,6 +61,12 @@ client.getPayment = getPayment.bind(client)
 client.getPayments = getPayments.bind(client)
 client.getTransactions = getTransactions.bind(client)
 
+=======
+test('Get Transactions', async ()=>{
+    const client = new DHFPay({
+        AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+    });
+>>>>>>> e140db2a620b990df927cc1930367c2553e386a4
 
 test('Create Payment', async ()=>{
 
@@ -98,5 +104,4 @@ test('Get Transactions', async ()=>{
     expect(Array.isArray(result)).toBe(true)
 
 });
-
 
