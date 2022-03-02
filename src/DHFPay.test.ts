@@ -1,10 +1,10 @@
 import DHFPay from "./DHFPay";
 
-const createPayment = jest.fn().mockImplementation(function () {
+const createPayment = jest.fn().mockImplementation(() => {
     return {id: 12}
 });
 
-const getPayment = jest.fn().mockImplementation(function () {
+const getPayment = jest.fn().mockImplementation(() => {
     return {
         id: 6,
         datetime: '2022-02-24T10:36:34.580Z',
@@ -24,7 +24,7 @@ const getPayment = jest.fn().mockImplementation(function () {
         }
     }
 });
-const getPayments = jest.fn().mockImplementation(function () {
+const getPayments = jest.fn().mockImplementation(() => {
     return [
         {
             id: 5,
@@ -47,7 +47,7 @@ const getPayments = jest.fn().mockImplementation(function () {
 });
 
 
-const getTransactions = jest.fn().mockImplementation(function () {
+const getTransactions = jest.fn().mockImplementation(() => {
     return []
 });
 
@@ -61,13 +61,13 @@ client.getPayment = getPayment.bind(client)
 client.getPayments = getPayments.bind(client)
 client.getTransactions = getTransactions.bind(client)
 
-test('Get Transactions', async ()=> {
+test('Get Transactions', async () => {
     const client = new DHFPay({
         AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
     });
 });
 
-test('Create Payment', async ()=>{
+test('Create Payment', async () => {
 
     const createParams: CreatePaymentDTO = {
         amount: 2500000,
@@ -80,7 +80,7 @@ test('Create Payment', async ()=>{
 });
 
 
-test('Get Payment', async ()=>{
+test('Get Payment', async () => {
     const result = await client.getPayment(6)
     expect(result).toBeDefined()
     expect(result).toHaveProperty('id')
@@ -97,7 +97,7 @@ test('Get Payments', async () => {
 
 });
 
-test('Get Transactions', async ()=>{
+test('Get Transactions', async () => {
     const result = await client.getTransactions();
     expect(result).toBeDefined()
     expect(Array.isArray(result)).toBe(true)
