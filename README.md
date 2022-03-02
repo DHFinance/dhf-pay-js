@@ -13,7 +13,8 @@ NodeJS SDK to integrate with DHFinance in minutes.
 # Create client 
 ```sh
  const client = new DHFPay({
-          AUTH_TOKEN: '##TOKEN##'
+          AUTH_TOKEN: '#TOKEN#',
+          API_URL: '#API_URL#'
       });
 ```
 
