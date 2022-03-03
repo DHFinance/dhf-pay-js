@@ -3,6 +3,10 @@ import {DEFAULT_API_URL, PAYMENTS_URI, TRANSACTION_URI} from "./constants";
 import {PaymentInterface} from "./interfaces/PaymentInterface";
 import {TransactionInterface} from "./interfaces/TransactionInterface";
 
+/**
+ * API wrap.
+ * @class
+ */
 class DHFPay {
     private readonly API_URL: string;
     private AUTH_TOKEN: string;
@@ -10,6 +14,10 @@ class DHFPay {
     private httpClient: AxiosStatic
 
 
+    /**
+     * @constructor
+     * @param {DHPayInterface} params
+     */
     constructor(params: DHPayInterface) {
         this.API_URL = params.API_URL || DEFAULT_API_URL;
         this.AUTH_TOKEN = params.AUTH_TOKEN;
@@ -19,10 +27,18 @@ class DHFPay {
         this.httpClient = axios;
     }
 
+    /**
+     * @return {string}
+     */
     public getUrl() {
         return this.API_URL;
     }
 
+    /**
+     * @description Create a payment
+     * @param {CreatePaymentDTO} params
+     * @return Promise
+     */
     public async createPayment(params: CreatePaymentDTO): Promise<{ id: number } | null> {
         try {
             const result = await this.httpClient.post(`${this.API_URL}${PAYMENTS_URI}`, params, {
@@ -43,6 +59,11 @@ class DHFPay {
 
     }
 
+    /**
+     * @description Get a payment by id
+     * @param {number} id
+     * @return {(Object|null)}
+     */
     public async getPayment(id: number): Promise<PaymentInterface | null> {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${PAYMENTS_URI}/${id}`, {
@@ -57,6 +78,10 @@ class DHFPay {
 
     }
 
+    /**
+     * @description Get payments list
+     * @return {Promise}
+     */
     public async getPayments():  Promise<PaymentInterface[]>  {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${PAYMENTS_URI}`, {
@@ -70,6 +95,10 @@ class DHFPay {
         }
     }
 
+    /**
+     * @description Get transactions list
+     * @return {Promise}
+     */
     public async getTransactions(): Promise<TransactionInterface[]> {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${TRANSACTION_URI}`, {
