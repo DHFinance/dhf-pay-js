@@ -39,22 +39,26 @@ class DHFPay {
      * @param {CreatePaymentDTO} params
      * @return Promise
      */
-    public async createPayment(params: CreatePaymentDTO): Promise<{ id: number } | null> {
+    public async createPayment(params: CreatePaymentDTO): Promise<{ id?: number, error?: any } | null > {
         try {
             const result = await this.httpClient.post(`${this.API_URL}${PAYMENTS_URI}`, params, {
                 ...this.axiosConfig
             });
 
-            const {data} = result;
-            if (!data.id) {
-                console.log("Error on payment creating", data);
+
+            if (!result?.data || !result.data?.id) {
+                // console.log("Error on payment creating", result);
+                return {
+                    error: result
+                };
             }
 
             return result.data;
 
         } catch (error) {
-            console.log("Error on payment creating", error);
-            return null;
+            return {
+                error: error
+            };
         }
 
     }
@@ -64,7 +68,7 @@ class DHFPay {
      * @param {number} id
      * @return {(Object|null)}
      */
-    public async getPayment(id: number): Promise<PaymentInterface | null> {
+    public async getPayment(id: number): Promise<PaymentInterface | null | { error: any }> {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${PAYMENTS_URI}/${id}`, {
                 ...this.axiosConfig
@@ -72,8 +76,9 @@ class DHFPay {
 
             return result.data;
         }catch (e) {
-            console.log(e);
-            return null;
+            return {
+                error: e
+            };
         }
 
     }
@@ -82,7 +87,7 @@ class DHFPay {
      * @description Get payments list
      * @return {Promise}
      */
-    public async getPayments():  Promise<PaymentInterface[]>  {
+    public async getPayments():  Promise<PaymentInterface[] | {error: any}>  {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${PAYMENTS_URI}`, {
                 ...this.axiosConfig
@@ -90,8 +95,10 @@ class DHFPay {
 
             return result.data;
         }catch (e) {
-            console.log(e);
-            return [];
+
+            return {
+                error: e
+            };
         }
     }
 
@@ -99,7 +106,7 @@ class DHFPay {
      * @description Get transactions list
      * @return {Promise}
      */
-    public async getTransactions(): Promise<TransactionInterface[]> {
+    public async getTransactions(): Promise<TransactionInterface[]| {error: any}> {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${TRANSACTION_URI}`, {
                 ...this.axiosConfig
@@ -107,8 +114,9 @@ class DHFPay {
 
             return result.data;
         }catch (e) {
-            console.log(e);
-            return [];
+            return {
+                error: e
+            };
         }
     }
 }
