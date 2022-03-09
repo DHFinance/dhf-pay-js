@@ -1,5 +1,7 @@
 import DHFPay from "./DHFPay";
+import axios from "axios";
 
+jest.mock("axios");
 const createPayment = jest.fn().mockImplementation(() => {
     return {id: 12}
 });
@@ -61,46 +63,138 @@ client.getPayment = getPayment.bind(client)
 client.getPayments = getPayments.bind(client)
 client.getTransactions = getTransactions.bind(client)
 
-test('Get Transactions', async () => {
-    const client = new DHFPay({
-        AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+describe("Create payment", () => {
+
+
+    test('Create Payment returns correctly', async () => {
+
+        const createParams: CreatePaymentDTO = {
+            amount: 2500000,
+            comment: "test payment"
+        }
+        const result = await client.createPayment(createParams)
+        expect(result).toBeDefined()
+        expect(result).toHaveProperty('id')
+        expect(result?.id).toEqual(12)
     });
+
+    test('Create Payment returns null if invalid data', async () => {
+
+
+        const client = new DHFPay({
+            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+        });
+
+        // @ts-ignore
+        axios.post.mockImplementationOnce(() => Promise.resolve({data: {}}));
+
+        const createParams: CreatePaymentDTO = {
+            amount: 2500000,
+            comment: "test payment"
+        };
+        const result = await client.createPayment(createParams)
+        expect(result).toHaveProperty("error")
+    });
+
+    test('Create Payment throws exception on request error', async () => {
+
+
+        const client = new DHFPay({
+            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+        });
+
+        // @ts-ignore
+        axios.post.mockImplementationOnce(() => Promise.reject({}));
+
+        const createParams: CreatePaymentDTO = {
+            amount: 2500000,
+            comment: "test payment"
+        };
+        const result = await client.createPayment(createParams)
+        expect(result).toHaveProperty("error")
+    });
+})
+
+describe("Get Payment", () => {
+
+
+    test('Get Payment returns correctly', async () => {
+        const result = await client.getPayment(6)
+        expect(result).not.toBeNull()
+        expect(result).toBeDefined()
+        expect(result).toHaveProperty('id')
+        expect(result).toHaveProperty('store')
+        expect(result).toHaveProperty('amount')
+        if(result && "id" in result){
+            expect(result?.id).toEqual(6)
+        }
+    });
+
+    test('Get Payment return error on request error', async () => {
+
+        const client = new DHFPay({
+            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+        });
+
+        // @ts-ignore
+        axios.get.mockImplementationOnce(() => Promise.reject({}));
+
+
+        const result = await client.getPayment(6)
+        expect(result).toBeDefined()
+        expect(result).toHaveProperty('error')
+
+    });
+
 });
 
-test('Create Payment', async () => {
+describe("Get Payments", () => {
+    test('Get Payments returns correctly', async () => {
+        const result = await client.getPayments();
+        expect(result).toBeDefined()
+        expect(Array.isArray(result)).toBe(true)
 
-    const createParams: CreatePaymentDTO = {
-        amount: 2500000,
-        comment: "test payment"
-    }
-    const result = await client.createPayment(createParams)
-    expect(result).toBeDefined()
-    expect(result).toHaveProperty('id')
-    expect(result?.id).toEqual(12)
-});
+    });
+    test('Get Payments return error on request error', async () => {
+        const client = new DHFPay({
+            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+        });
+
+        // @ts-ignore
+        axios.get.mockImplementationOnce(() => Promise.reject({}));
+
+        const result = await client.getPayments();
+        expect(result).toBeDefined()
+        expect(result).toHaveProperty('error')
 
 
-test('Get Payment', async () => {
-    const result = await client.getPayment(6)
-    expect(result).toBeDefined()
-    expect(result).toHaveProperty('id')
-    expect(result).toHaveProperty('store')
-    expect(result).toHaveProperty('amount')
-    expect(result?.id).toEqual(6)
+    });
 
-});
+})
 
-test('Get Payments', async () => {
-    const result = await client.getPayments();
-    expect(result).toBeDefined()
-    expect(Array.isArray(result)).toBe(true)
+describe("Get Transactions", () => {
 
-});
+    test('Get Transactions returns correctly', async () => {
+        const result = await client.getTransactions();
+        expect(result).toBeDefined()
+        expect(Array.isArray(result)).toBe(true)
 
-test('Get Transactions', async () => {
-    const result = await client.getTransactions();
-    expect(result).toBeDefined()
-    expect(Array.isArray(result)).toBe(true)
+    });
 
-});
+    test('Get Transactions  return error on request error', async () => {
+        const client = new DHFPay({
+            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+        });
+
+        // @ts-ignore
+        axios.get.mockImplementationOnce(() => Promise.reject({}));
+        const result = await client.getTransactions();
+        expect(result).toBeDefined()
+        expect(result).toHaveProperty('error')
+
+
+    });
+})
+
+
 
