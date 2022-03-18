@@ -1,4 +1,4 @@
-# DH Pay JS
+# DH Pay NodeJS
 NodeJS SDK to integrate with DHFinance in minutes.
 
 # Getting Started
