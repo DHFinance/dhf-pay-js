@@ -1,7 +1,10 @@
 # DH Pay JS
 NodeJS SDK to integrate with DHFinance in minutes.
 
-# Install
+# Getting Started
+1. **Sign up for DHFinance** - Before you begin, you need to sign up for an DHFinance account and retrieve your store API token. 
+2. **Requirements** – To run the SDK, your system will need to have Node JS >= 14 and npm >= 6 installed .
+3. **Install** 
 ```sh
  npm i dhf-pay-js -S
 ```
