@@ -2,7 +2,7 @@
 NodeJS SDK to integrate with DHFinance in minutes.
 
 # Getting Started
-1. **Sign up for DHFinance** - Before you begin, you need to sign up for an DHFinance account and retrieve your store API token. 
+1. **Sign up** - Before you begin, you need to sign up for your payment gateway account (pay.dhfi.online for example) and retrieve your store API token. 
 2. **Requirements** – To run the SDK, your system will need to have Node JS >= 14 and npm >= 6 installed .
 3. **Install** 
 ```sh
