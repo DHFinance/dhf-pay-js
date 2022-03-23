@@ -57,7 +57,7 @@ class DHFPay {
 
         } catch (error) {
             return {
-                error: error
+                error
             };
         }
 
