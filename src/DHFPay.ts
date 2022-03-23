@@ -12,6 +12,7 @@ class DHFPay {
     private AUTH_TOKEN: string;
     private axiosConfig: any
     private httpClient: AxiosStatic
+    static default: any;
 
 
     /**
@@ -121,5 +122,6 @@ class DHFPay {
     }
 }
 
+DHFPay.default = DHFPay;
+export = DHFPay;
 
-export default DHFPay;
