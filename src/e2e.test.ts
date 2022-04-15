@@ -1,8 +1,8 @@
 import DHFPay from "./DHFPay";
-
+require('dotenv').config()
 
 const client = new DHFPay({
-    AUTH_TOKEN: 'owUOeCBjAgT0vD7gY7u1PTeGwQYoLbusDWEe'
+    AUTH_TOKEN: process.env.STORE_API_URL
 });
 
 let paymentId: number;

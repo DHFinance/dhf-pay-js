@@ -1,5 +1,6 @@
 import DHFPay from "./DHFPay";
 import axios from "axios";
+require('dotenv').config()
 
 jest.mock("axios");
 const createPayment = jest.fn().mockImplementation(() => {
@@ -55,7 +56,7 @@ const getTransactions = jest.fn().mockImplementation(() => {
 
 
 const client = new DHFPay({
-    AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+    AUTH_TOKEN: process.env.STORE_API_URL
 });
 
 client.createPayment = createPayment.bind(client)
@@ -82,7 +83,7 @@ describe("Create payment", () => {
 
 
         const client = new DHFPay({
-            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+            AUTH_TOKEN: process.env.STORE_API_URL
         });
 
         // @ts-ignore
@@ -100,7 +101,7 @@ describe("Create payment", () => {
 
 
         const client = new DHFPay({
-            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+            AUTH_TOKEN: process.env.STORE_API_URL
         });
 
         // @ts-ignore
@@ -133,7 +134,7 @@ describe("Get Payment", () => {
     test('Get Payment return error on request error', async () => {
 
         const client = new DHFPay({
-            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+            AUTH_TOKEN: process.env.STORE_API_URL
         });
 
         // @ts-ignore
@@ -157,7 +158,7 @@ describe("Get Payments", () => {
     });
     test('Get Payments return error on request error', async () => {
         const client = new DHFPay({
-            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+            AUTH_TOKEN: process.env.STORE_API_URL
         });
 
         // @ts-ignore
@@ -183,7 +184,7 @@ describe("Get Transactions", () => {
 
     test('Get Transactions  return error on request error', async () => {
         const client = new DHFPay({
-            AUTH_TOKEN: '6bzKGw4Rcd508FbTZA02OW1mQglxSwJ1CXdY'
+            AUTH_TOKEN: process.env.STORE_API_URL
         });
 
         // @ts-ignore
