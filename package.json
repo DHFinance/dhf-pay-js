@@ -1,6 +1,6 @@
 {
   "name": "dhf-pay-js",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "DHF Pay js sdk",
   "main": "lib/DHFPay.js",
   "scripts": {
