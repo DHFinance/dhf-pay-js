@@ -94,7 +94,14 @@ NodeJS SDK to integrate with DHFinance in minutes.
  
 # Run tests 
 ```sh
- npm test
+For integrational tests you need to provide store api token. 
+Token could be generated after registration on https://pay.dhfi.online/
+// src/e2e.test.ts
+const client = new DHFPay({
+    AUTH_TOKEN: '#TOKEN#'
+});
+
+npm test
 ```
  
  
