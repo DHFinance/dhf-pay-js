@@ -1,7 +1,8 @@
-import axios, {AxiosStatic} from "axios";
+import axios, {AxiosError, AxiosStatic} from "axios";
 import {DEFAULT_API_URL, PAYMENTS_URI, TRANSACTION_URI} from "./constants";
 import {PaymentInterface} from "./interfaces/PaymentInterface";
 import {TransactionInterface} from "./interfaces/TransactionInterface";
+import {AmountTooSmallException, BadRequestException, NotAuthorizedException} from "./exceptions";
 
 /**
  * API wrap.
@@ -56,10 +57,28 @@ class DHFPay {
 
             return result.data;
 
-        } catch (error) {
-            return {
-                error
-            };
+        } catch (error: any) {
+            if(axios.isAxiosError(error)){
+                const typedError = error as  AxiosError;
+                const status = typedError.response?.status;
+
+                const possibleError = typedError?.response?.data?.message;
+                const hasError = possibleError !== undefined
+                switch (status){
+                    case 400:
+                        if(hasError){
+                            throw  new AmountTooSmallException(typedError)
+                        }else{
+                            throw new BadRequestException(typedError);
+                        }
+                    case 401:
+                        throw  new NotAuthorizedException(typedError)
+                    default:
+                        throw new BadRequestException(typedError);
+                }
+            }else{
+                throw error;
+            }
         }
 
     }
@@ -69,17 +88,30 @@ class DHFPay {
      * @param {number} id
      * @return {(Object|null)}
      */
-    public async getPayment(id: number): Promise<PaymentInterface | null | { error: any }> {
+    public async getPayment(id: number): Promise<PaymentInterface | null  > {
         try{
             const result = await this.httpClient.get(`${this.API_URL}${PAYMENTS_URI}/${id}`, {
                 ...this.axiosConfig
             });
 
             return result.data;
-        }catch (e) {
-            return {
-                error: e
-            };
+        }catch (e: any) {
+
+            if(axios.isAxiosError(e)){
+                const error = e as  AxiosError;
+                const status = error.response?.status;
+
+
+                switch (status){
+                    case 401:
+                        throw  new NotAuthorizedException(e)
+                    default:
+                        throw new BadRequestException(e);
+                }
+            }else{
+                throw e;
+            }
+
         }
 
     }
@@ -95,11 +127,22 @@ class DHFPay {
             });
 
             return result.data;
-        }catch (e) {
+        }catch (e: any) {
 
-            return {
-                error: e
-            };
+            if(axios.isAxiosError(e)){
+                const error = e as  AxiosError;
+                const status = error.response?.status;
+
+
+                switch (status){
+                    case 401:
+                        throw  new NotAuthorizedException(e)
+                    default:
+                        throw new BadRequestException(e);
+                }
+            }else{
+                throw e;
+            }
         }
     }
 
@@ -114,10 +157,21 @@ class DHFPay {
             });
 
             return result.data;
-        }catch (e) {
-            return {
-                error: e
-            };
+        }catch (e: any) {
+            if(axios.isAxiosError(e)){
+                const error = e as  AxiosError;
+                const status = error.response?.status;
+
+
+                switch (status){
+                    case 401:
+                        throw  new NotAuthorizedException(e)
+                    default:
+                        throw new BadRequestException(e);
+                }
+            }else{
+                throw e;
+            }
         }
     }
 }
