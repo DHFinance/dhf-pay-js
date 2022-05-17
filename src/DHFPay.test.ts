@@ -64,7 +64,7 @@ client.getPayment = getPayment.bind(client)
 client.getPayments = getPayments.bind(client)
 client.getTransactions = getTransactions.bind(client)
 
-describe("Create payment", () => {
+describe.skip("Create payment", () => {
 
 
     test('Create Payment returns correctly', async () => {
@@ -116,7 +116,7 @@ describe("Create payment", () => {
     });
 })
 
-describe("Get Payment", () => {
+describe.skip("Get Payment", () => {
 
 
     test('Get Payment returns correctly', async () => {
@@ -149,14 +149,14 @@ describe("Get Payment", () => {
 
 });
 
-describe("Get Payments", () => {
-    test('Get Payments returns correctly', async () => {
+describe.skip("Get Payments", () => {
+    test.skip('Get Payments returns correctly', async () => {
         const result = await client.getPayments();
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
 
     });
-    test('Get Payments return error on request error', async () => {
+    test.skip('Get Payments return error on request error', async () => {
         const client = new DHFPay({
             AUTH_TOKEN: process.env.STORE_API_URL
         });
@@ -173,16 +173,16 @@ describe("Get Payments", () => {
 
 })
 
-describe("Get Transactions", () => {
+describe.skip("Get Transactions", () => {
 
-    test('Get Transactions returns correctly', async () => {
+    test.skip('Get Transactions returns correctly', async () => {
         const result = await client.getTransactions();
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
 
     });
 
-    test('Get Transactions  return error on request error', async () => {
+    test.skip('Get Transactions  return error on request error', async () => {
         const client = new DHFPay({
             AUTH_TOKEN: process.env.STORE_API_URL
         });
