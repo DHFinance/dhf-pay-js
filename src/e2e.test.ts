@@ -23,10 +23,10 @@ describe("Create payment", () => {
         expect(result).toHaveProperty('id')
     });
 
-    test('Create Payment throws error on small amount', async () => {
+    test.skip('Create Payment throws error on small amount', async () => {
 
         const createParams: CreatePaymentDTO = {
-            amount: 250000,
+            amount: 240000,
             comment: "test payment"
         }
 
@@ -104,14 +104,13 @@ describe("Get Payments", () => {
 
     });
 
-    // todo спросить про токен
-    test.skip('Get Payments throws error on bad token', async () => {
+    test('Get Payments returns empty errors on bad token', async () => {
         const client = new DHFPay({
-            AUTH_TOKEN: process.env.STORE_API_TOKEN+'1',
+            AUTH_TOKEN: process.env.STORE_API_TOKEN+'sd1',
         });
 
-        await expect(client.getPayments()).rejects
-            .toThrow(BadRequestException);
+        const res = await client.getPayments();
+        expect(res).toEqual([])
 
     });
 
@@ -139,15 +138,14 @@ describe("Get Transactions", () => {
 
     });
     // todo fix unauthorized
-    test.skip('Get Transactions  throws exception on bad token', async () => {
+    test('Get Transactions  return empty arr on bad token', async () => {
         const client = new DHFPay({
-            AUTH_TOKEN: process.env.STORE_API_TOKEN+'1',
-            API_URL: process.env.STORE_API_URL
-
+            AUTH_TOKEN: process.env.STORE_API_TOKEN+'1'
         });
 
-        await expect(client.getTransactions()).rejects
-            .toThrow(BadRequestException);
+
+        const res = await client.getTransactions();
+        expect(res).toEqual([])
 
 
     });
