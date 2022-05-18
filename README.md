@@ -25,7 +25,7 @@ NodeJS SDK to integrate with DHFinance in minutes.
 # Create payment
  ```sh
     const createParams: CreatePaymentDTO = {
-          amount: 2500000, 
+          amount: 2500000000, 
           comment: "test payment"
     }
     const result = await client.createPayment(createParams)
