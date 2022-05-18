@@ -50,7 +50,8 @@ NodeJS SDK to integrate with DHFinance in minutes.
  ```sh
     const result: TransactionInterface[] = await client.getTransactions();
 ```
- 
+
+ Note: amount should be in motes, for exaple 1 cspr = 1000000000 in mots
  
  # Interfaces
   ```sh
