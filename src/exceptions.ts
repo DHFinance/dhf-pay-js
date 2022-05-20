@@ -1,10 +1,19 @@
 import {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
 
+/**
+ * Bad request exception
+ * @class
+ */
 export class BadRequestException extends Error {
     public code: string | undefined;
     public config: AxiosRequestConfig<any>;
     public request: any | undefined;
     public response: AxiosResponse<any, any> | undefined;
+
+    /**
+     * @constructor
+     * @param {AxiosError} error
+     */
     constructor(error: AxiosError) {
         super(error.message);
 
@@ -19,11 +28,20 @@ export class BadRequestException extends Error {
 }
 
 
+/**
+ * Not authorized exception
+ * @class
+ */
 export class NotAuthorizedException extends Error {
     public code: string | undefined;
     public config: AxiosRequestConfig<any>;
     public request: any | undefined;
     public response: AxiosResponse<any, any> | undefined;
+
+    /**
+     * @constructor
+     * @param {AxiosError} error
+     */
     constructor(error: AxiosError) {
         super(error.message);
 
@@ -37,11 +55,21 @@ export class NotAuthorizedException extends Error {
         Object.setPrototypeOf(this, NotAuthorizedException.prototype);
     }
 }
+
+/**
+ * Small amount exception
+ * @class
+ */
 export class AmountTooSmallException extends Error {
     public code: string | undefined;
     public config: AxiosRequestConfig<any>;
     public request: any | undefined;
     public response: AxiosResponse<any, any> | undefined;
+
+    /**
+     * @constructor
+     * @param {AxiosError} error
+     */
     constructor(error: AxiosError) {
 
         // @ts-ignore
