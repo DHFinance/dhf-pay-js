@@ -56,7 +56,6 @@ describe("Create payment", () => {
 describe("Get payment", () => {
     test('Get payment returns correctly', async () => {
         const result = await client.getPayment(10)
-        console.log(result)
 
         expect(result).not.toBeNull()
         expect(result).toBeDefined()
