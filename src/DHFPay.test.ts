@@ -1,6 +1,7 @@
 import DHFPay from "./DHFPay";
 import axios from "axios";
-require('dotenv').config()
+import {config as dotenvConfig} from 'dotenv';
+dotenvConfig();
 
 jest.mock("axios");
 const createPayment = jest.fn().mockImplementation(() => {

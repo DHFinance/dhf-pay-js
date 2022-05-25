@@ -1,8 +1,8 @@
 import DHFPay from "./DHFPay";
 import axios, {AxiosError} from "axios";
 import {AmountTooSmallException, BadRequestException, NotAuthorizedException} from "./exceptions";
-
-require('dotenv').config()
+import {config as dotenvConfig} from 'dotenv';
+dotenvConfig();
 
 const client = new DHFPay({
     AUTH_TOKEN: process.env.STORE_API_TOKEN,
@@ -15,7 +15,7 @@ describe("Create payment", () => {
     test('Create Payment returns correctly', async () => {
 
         const createParams: CreatePaymentDTO = {
-            amount: 2500000000,
+            amount: 2600000000,
             comment: "test payment"
         }
         const result = await client.createPayment(createParams)
